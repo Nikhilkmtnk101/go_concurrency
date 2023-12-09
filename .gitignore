@@ -1,0 +1,60 @@
+.DS_Store
+.idea/
+*.make
+vendor/
+*.exe
+*.ini
+# Rust build dir
+/target
+
+# htmlcov, testing coverage files
+htmlcov/
+
+# Syncthing ignore files
+.stignore
+.stglobalignore
+*.lnk
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+.vscode/
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Any directory named no-git
+no-git/
