@@ -8,7 +8,7 @@ import (
 func Test_AllSolutions(t *testing.T) {
 	permutations := generatePermutations()
 	for _, nums := range permutations {
-		f := []Foo{NewFooMutex(), NewFooCond()}
+		f := []Foo{NewFooMutex(), NewFooCond(), NewFooChannel()}
 		for i := 0; i < len(f); i++ {
 			callFunctions(f[i], nums)
 		}

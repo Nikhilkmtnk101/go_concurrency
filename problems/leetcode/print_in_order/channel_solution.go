@@ -1,30 +1,30 @@
 package print_in_order
 
-import "sync"
-
 type FooChannel struct {
-	mutex2 sync.Mutex
-	mutex3 sync.Mutex
+	ch2 chan bool
+	ch3 chan bool
 }
 
 func NewFooChannel() *FooChannel {
 	f := &FooChannel{
-		mutex2: sync.Mutex{},
-		mutex3: sync.Mutex{},
+		ch2: make(chan bool),
+		ch3: make(chan bool),
 	}
-	f.mutex2.Lock()
-	f.mutex3.Lock()
 	return f
 }
 
 func (f *FooChannel) first(printFirst func()) {
 	printFirst()
+	f.ch2 <- true
 }
 
 func (f *FooChannel) second(printSecond func()) {
+	<-f.ch2
 	printSecond()
+	f.ch3 <- true
 }
 
 func (f *FooChannel) third(printThird func()) {
+	<-f.ch3
 	printThird()
 }
