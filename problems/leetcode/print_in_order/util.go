@@ -11,6 +11,7 @@ import (
 var wg sync.WaitGroup
 
 var outputFilename = "output.txt"
+var expectedOutput = "firstsecondthird"
 
 // deleteFile delete the file.
 func deleteFile(filename string) error {

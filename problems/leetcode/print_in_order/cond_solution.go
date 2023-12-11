@@ -3,28 +3,42 @@ package print_in_order
 import "sync"
 
 type FooCond struct {
-	mutex2 sync.Mutex
-	mutex3 sync.Mutex
+	val  int
+	cond *sync.Cond
 }
 
 func NewFooCond() *FooCond {
 	f := &FooCond{
-		mutex2: sync.Mutex{},
-		mutex3: sync.Mutex{},
+		val:  1,
+		cond: sync.NewCond(&sync.Mutex{}),
 	}
-	f.mutex2.Lock()
-	f.mutex3.Lock()
+	f.cond.L.Lock()
 	return f
 }
 
 func (f *FooCond) first(printFirst func()) {
 	printFirst()
+	f.val = 2
+	f.cond.L.Unlock()
+	f.cond.Signal()
 }
 
 func (f *FooCond) second(printSecond func()) {
+	f.cond.L.Lock()
+	for f.val != 2 {
+		f.cond.Wait()
+	}
 	printSecond()
+	f.val = 3
+	f.cond.L.Unlock()
+	f.cond.Signal()
 }
 
 func (f *FooCond) third(printThird func()) {
+	f.cond.L.Lock()
+	for f.val != 3 {
+		f.cond.Wait()
+	}
 	printThird()
+	f.cond.L.Unlock()
 }
